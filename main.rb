@@ -1,3 +1,5 @@
+def run_game
+
 europe_country_capitals = {
     "Albania" => "Tirana",
     "Andorra" => "Andorra la Vella",
@@ -53,9 +55,8 @@ europe_country_capitals = {
   }
 
 
-  loop do
 
-    puts "====== Welcome to the Learn European Country Capitals! ========\n   Start the game by answering the questions below!\n============== To quit, press 'q' ======================"
+    puts "====== Welcome to the Learn European Country Capitals! ========\n   Start the game by answering the questions below!\n================= To quit, press 'q' =========================="
     
     questions_counter = { true => 0, false => 0 }
     asked_countries = []
@@ -71,24 +72,41 @@ europe_country_capitals = {
           asked_countries.push(country)
           puts "What is the capital of #{country}?"
           answer = gets.chomp
-    
-          break if answer.downcase == 'q'
+            # break the loop if user presses "q"
+            break if answer.downcase == 'q'
 
-          if answer.downcase == europe_country_capitals[country].downcase
-            puts "Correct answer!"
-            questions_counter[true] += 1
-            score += 1
-            puts("Total of countries answered correctly: #{questions_counter[true]}")
-          else
-            puts "Incorrect answer!"
-            questions_counter[false] += 1
-          end
+            if answer.downcase == europe_country_capitals[country].downcase
+                puts "Correct answer!"
+                questions_counter[true] += 1
+                score += 1
+                puts("Total of countries answered correctly: #{questions_counter[true]}")
+
+            else
+                puts "Incorrect answer!"
+                questions_counter[false] += 1
+            end
+        end
+    end
+
+    if asked_countries.length == countries.length
+        puts "Would you like to play again? (y/n): "
+        input = gets.chomp.downcase
+    
+        if input == 'y'
+          run_game()
+        else
+          puts "Thanks for playing! Goodbye"
         end
       end
 
-    
-    
-    
-    break if input.downcase == 'q'
-  end
+
+    puts "-----------------------------------------------------"
+    puts "Results: True:#{questions_counter[true]}, False:#{questions_counter[false]}"
+    puts "============== Your score is: #{score} ====================="
+    puts "-----------------------------------------------------"
+
+end
+
+
+run_game()
 
